@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>لوحة التحكم | Modern Wood Art</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--soft:#f7f2ea;--ink:#2a1a0e;--mut:#7d6a58;--acc:#8a5424;--line:#eadfce;--ok:#2e7d32;--bad:#b3261e;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:Cairo,Tahoma,sans-serif;line-height:1.7;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+header{background:var(--ink);color:#e9dcc8;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+header b{font-weight:800}
+header a{color:#e9dcc8;font-size:.9rem}
+main{max-width:900px;margin:0 auto;padding:18px 14px 90px}
+.box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+h2{margin:0 0 10px;font-size:1.2rem;font-weight:800}
+label{display:block;margin:10px 0 3px;font-weight:700;font-size:.9rem}
+input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit}
+textarea{min-height:80px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{border:0;border-radius:999px;padding:10px 22px;font:700 .95rem Cairo,sans-serif;background:var(--ink);color:#fff;cursor:pointer}
+.btn.acc{background:var(--acc)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.del{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.btn:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.hint{color:var(--mut);font-size:.85rem;margin:6px 0 0}
+.pv{margin-top:8px;width:120px;height:150px;border-radius:12px;object-fit:cover;background:var(--soft);display:none;border:1px solid var(--line)}
+.list{display:grid;gap:10px}
+.item{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff}
+.item img{width:64px;height:80px;border-radius:10px;object-fit:cover;background:var(--soft);flex:none}
+.item .i{flex:1;min-width:0}
+.item .i b{display:block}
+.item .i span{color:var(--mut);font-size:.88rem}
+.item .a{display:flex;flex-direction:column;gap:6px}
+.item .a .btn{padding:5px 14px;font-size:.82rem}
+.empty{color:var(--mut);text-align:center;padding:22px;border:1px dashed var(--line);border-radius:14px}
+.bar{position:fixed;inset-inline:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;align-items:center;justify-content:space-between;z-index:6}
+#msg{font-size:.9rem;font-weight:600}
+#msg.ok{color:var(--ok)}#msg.err{color:var(--bad)}
+.hide{display:none!important}
+@media(max-width:560px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><b>لوحة التحكم</b><a href="./">رجوع للموقع</a></header>
+<main>
+
+<section class="box" id="login">
+  <h2>الربط مع GitHub</h2>
+  <label>اسم الحساب (Username)</label>
+  <input id="owner" dir="ltr" placeholder="مثال: ahmed123" autocomplete="off">
+  <label>اسم الريبو (Repository)</label>
+  <input id="repo" dir="ltr" placeholder="مثال: wood-art" autocomplete="off">
+  <div class="two">
+    <div><label>الفرع (Branch)</label><input id="branch" dir="ltr" value="main"></div>
+    <div><label>مجلد الصور</label><input id="imgdir" dir="ltr" value="images"></div>
+  </div>
+  <label>التوكن (Token)</label>
+  <input id="token" type="password" dir="ltr" placeholder="github_pat_..." autocomplete="off">
+  <p class="hint">التوكن بيتحفظ في متصفحك إنت بس، ومش بيتبعت لأي مكان غير GitHub.</p>
+  <div class="row"><button class="btn acc" id="connect">دخول وتحميل المنتجات</button></div>
+</section>
+
+<div id="app" class="hide">
+  <section class="box">
+    <h2 id="ftitle">إضافة منتج جديد</h2>
+    <label>اسم المنتج</label>
+    <input id="pname" placeholder="مثال: ساعة حائط خشب زان">
+    <div class="two">
+      <div><label>السعر (جنيه)</label><input id="pprice" type="number" inputmode="decimal" min="0"></div>
+      <div><label>القسم</label><input id="pcat" placeholder="ديكور / أثاث / هدايا"></div>
+    </div>
+    <label>الوصف</label>
+    <textarea id="pdesc" placeholder="الخامة، المقاس، وقت التنفيذ..."></textarea>
+    <label>صورة المنتج</label>
+    <input id="pimg" type="file" accept="image/*">
+    <img id="pv" class="pv" alt="معاينة">
+    <div class="row">
+      <button class="btn acc" id="padd">إضافة المنتج</button>
+      <button class="btn ghost hide" id="pcancel">إلغاء التعديل</button>
+    </div>
+    <p class="hint">الإضافة بتظهر هنا الأول. اضغط «نشر التغييرات» تحت عشان تظهر في الموقع.</p>
+  </section>
+
+  <section class="box">
+    <h2>المنتجات (<span id="cnt">0</span>)</h2>
+    <div class="list" id="list"></div>
+  </section>
+</div>
+</main>
+
+<div class="bar hide" id="bar">
+  <span id="msg"></span>
+  <div style="display:flex;gap:8px">
+    <button class="btn ghost" id="logout">خروج</button>
+    <button class="btn acc" id="publish" disabled>نشر التغييرات</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var LS='woodart_admin_cfg';
+  var cfg={}, products=[], sha=null, dirty=false, editId=null, pendingImg=null;
+
+  function store(get,val){
+    try{ if(get) return JSON.parse(localStorage.getItem(LS)||'{}'); localStorage.setItem(LS,JSON.stringify(val)); }catch(e){ return {}; }
+  }
+  function say(t,k){ var m=$('msg'); m.textContent=t||''; m.className=k||''; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}); }
+  function enc(str){ return btoa(unescape(encodeURIComponent(str))); }
+  function dec(b64){ return decodeURIComponent(escape(atob(b64.replace(/\n/g,'')))); }
+
+  function api(path,opt){
+    opt=opt||{};
+    opt.headers=Object.assign({'Authorization':'Bearer '+cfg.token,'Accept':'application/vnd.github+json'},opt.headers||{});
+    return fetch('https://api.github.com/repos/'+cfg.owner+'/'+cfg.repo+'/contents/'+path,opt);
+  }
+
+  function readForm(){
+    cfg={owner:$('owner').value.trim(),repo:$('repo').value.trim(),branch:$('branch').value.trim()||'main',imgdir:($('imgdir').value.trim()||'images').replace(/^\/|\/$/g,''),token:$('token').value.replace(/\s+/g,'')};
+  }
+
+  async function check(){
+    var h={'Authorization':'Bearer '+cfg.token,'Accept':'application/vnd.github+json'};
+    var base='https://api.github.com/repos/'+cfg.owner+'/'+cfg.repo;
+    var r=await fetch(base,{headers:h});
+    if(r.status===401) throw new Error('التوكن غلط أو منتهي. اعمل توكن جديد وانسخه من غير مسافات.');
+    if(r.status===404) throw new Error('الريبو مش ظاهر. راجع اسم الحساب والريبو، ولو التوكن Fine-grained لازم تختار الريبو ده في صلاحيات التوكن.');
+    if(!r.ok) throw new Error('تعذر الاتصال بـ GitHub ('+r.status+').');
+    var b=await fetch(base+'/branches/'+encodeURIComponent(cfg.branch),{headers:h});
+    if(b.status===404) throw new Error('الفرع "'+cfg.branch+'" مش موجود. افتح الريبو وشوف اسمه (main أو master).');
+  }
+  async function load(){
+    await check();
+    var r=await api('products.json?ref='+encodeURIComponent(cfg.branch));
+    if(r.status===404){ products=[]; sha=null; return; }
+    if(r.status===401||r.status===403) throw new Error('التوكن مالوش صلاحية على الريبو ده.');
+    if(!r.ok) throw new Error('تعذر تحميل المنتجات ('+r.status+').');
+    var j=await r.json(); sha=j.sha;
+    var data=JSON.parse(dec(j.content));
+    products=Array.isArray(data)?data:(data.products||[]);
+  }
+
+  $('connect').onclick=async function(){
+    readForm();
+    if(!cfg.owner||!cfg.repo||!cfg.token){ say('اكتب اسم الحساب والريبو والتوكن.','err'); $('bar').classList.remove('hide'); return; }
+    var b=this; b.disabled=true; b.textContent='جاري التحميل...';
+    try{
+      await load();
+      store(false,cfg);
+      $('login').classList.add('hide'); $('app').classList.remove('hide'); $('bar').classList.remove('hide');
+      say('تم الاتصال.','ok'); render();
+    }catch(e){ $('bar').classList.remove('hide'); say(e.message,'err'); }
+    b.disabled=false; b.textContent='دخول وتحميل المنتجات';
+  };
+
+  $('logout').onclick=function(){
+    if(dirty && !confirm('في تغييرات لسه ماتنشرتش. تخرج بردو؟')) return;
+    store(false,{owner:cfg.owner,repo:cfg.repo,branch:cfg.branch,imgdir:cfg.imgdir});
+    location.reload();
+  };
+
+  function render(){
+    $('cnt').textContent=products.length;
+    var l=$('list');
+    if(!products.length){ l.innerHTML='<div class="empty">مفيش منتجات لسه. ضيف أول منتج من الفورم اللي فوق.</div>'; }
+    else l.innerHTML=products.map(function(p){
+      var img=p.img?'<img src="'+esc(p.img.indexOf('data:')===0?p.img:p.img)+'" alt="">':'<img alt="">';
+      return '<div class="item">'+img+'<div class="i"><b>'+esc(p.name)+'</b><span>'+esc(p.price)+' ج'+(p.category?' · '+esc(p.category):'')+'</span></div>'+
+        '<div class="a"><button class="btn ghost" data-e="'+esc(p.id)+'">تعديل</button><button class="btn del" data-d="'+esc(p.id)+'">حذف</button></div></div>';
+    }).join('');
+    $('publish').disabled=!dirty;
+  }
+
+  $('list').onclick=function(e){
+    var t=e.target;
+    if(t.dataset.e){ startEdit(t.dataset.e); }
+    if(t.dataset.d){
+      if(!confirm('تحذف المنتج ده؟')) return;
+      products=products.filter(function(p){return p.id!==t.dataset.d});
+      dirty=true; render(); say('اتحذف. اضغط «نشر التغييرات».');
+    }
+  };
+
+  function resetForm(){
+    editId=null; pendingImg=null;
+    ['pname','pprice','pcat','pdesc'].forEach(function(i){$(i).value=''});
+    $('pimg').value=''; $('pv').style.display='none';
+    $('ftitle').textContent='إضافة منتج جديد'; $('padd').textContent='إضافة المنتج'; $('pcancel').classList.add('hide');
+  }
+  function startEdit(id){
+    var p=products.find(function(x){return x.id===id}); if(!p) return;
+    editId=id; pendingImg=null;
+    $('pname').value=p.name||''; $('pprice').value=p.price||''; $('pcat').value=p.category||''; $('pdesc').value=p.desc||'';
+    if(p.img){ $('pv').src=p.img; $('pv').style.display='block'; } else $('pv').style.display='none';
+    $('ftitle').textContent='تعديل المنتج'; $('padd').textContent='حفظ التعديل'; $('pcancel').classList.remove('hide');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  $('pcancel').onclick=resetForm;
+
+  // resize image in the browser so the repo stays light
+  $('pimg').onchange=function(){
+    var f=this.files[0]; if(!f) return;
+    var url=URL.createObjectURL(f), im=new Image();
+    im.onload=function(){
+      var max=1000, s=Math.min(1,max/Math.max(im.width,im.height));
+      var c=document.createElement('canvas'); c.width=Math.round(im.width*s); c.height=Math.round(im.height*s);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+      pendingImg=c.toDataURL('image/jpeg',.82);
+      $('pv').src=pendingImg; $('pv').style.display='block';
+      URL.revokeObjectURL(url);
+    };
+    im.onerror=function(){ say('الصورة دي مش مقبولة، جرب صورة تانية.','err'); };
+    im.src=url;
+  };
+
+  $('padd').onclick=function(){
+    var name=$('pname').value.trim(), price=$('pprice').value.trim();
+    if(!name){ say('اكتب اسم المنتج.','err'); return; }
+    if(price===''||isNaN(+price)){ say('اكتب السعر بالأرقام.','err'); return; }
+    var data={name:name,price:+price,category:$('pcat').value.trim(),desc:$('pdesc').value.trim()};
+    if(editId){
+      var p=products.find(function(x){return x.id===editId});
+      Object.assign(p,data); if(pendingImg){ p.img=pendingImg; p._new=true; }
+    }else{
+      var id='p'+Date.now();
+      products.unshift(Object.assign({id:id,img:pendingImg||'',_new:!!pendingImg},data));
+    }
+    dirty=true; resetForm(); render(); say('تمت الإضافة محليًا. اضغط «نشر التغييرات».');
+  };
+
+  async function put(path,b64,message,shaOld){
+    var body={message:message,content:b64,branch:cfg.branch}; if(shaOld) body.sha=shaOld;
+    var r=await api(path,{method:'PUT',body:JSON.stringify(body)});
+    if(!r.ok){
+      var t=''; try{t=(await r.json()).message}catch(e){}
+      if(r.status===401) throw new Error('التوكن غلط أو منتهي. اعمل توكن جديد.');
+      if(r.status===403||r.status===404) throw new Error('التوكن مالوش صلاحية الكتابة. فعّل Contents: Read and write للريبو ده (أو repo في الكلاسيك) وجرب تاني.');
+      throw new Error('فشل الرفع ('+r.status+') '+t);
+    }
+    return r.json();
+  }
+
+  $('publish').onclick=async function(){
+    var b=this; b.disabled=true;
+    try{
+      // upload new images
+      for(var i=0;i<products.length;i++){
+        var p=products[i];
+        if(p._new && p.img && p.img.indexOf('data:')===0){
+          say('جاري رفع الصورة '+(i+1)+'...');
+          var path=cfg.imgdir+'/'+p.id+'-'+Date.now()+'.jpg';
+          await put(path,p.img.split(',')[1],'Add image '+p.name);
+          p.img=path; delete p._new;
+        }
+      }
+      say('جاري نشر قائمة المنتجات...');
+      var clean=products.map(function(p){var o=Object.assign({},p); delete o._new; return o;});
+      var cur=await api('products.json?ref='+encodeURIComponent(cfg.branch));
+      var latest=cur.ok?(await cur.json()).sha:null;
+      var res=await put('products.json',enc(JSON.stringify(clean,null,2)),'Update products',latest);
+      sha=res.content.sha; dirty=false; render();
+      say('تم النشر. التغيير بيظهر في الموقع خلال دقيقة تقريبًا.','ok');
+    }catch(e){
+      say(e.message,'err'); b.disabled=false;
+    }
+  };
+
+  window.addEventListener('beforeunload',function(e){ if(dirty){ e.preventDefault(); e.returnValue=''; }});
+
+  // restore saved settings
+  var saved=store(true);
+  if(saved.owner) $('owner').value=saved.owner;
+  if(saved.repo) $('repo').value=saved.repo;
+  if(saved.branch) $('branch').value=saved.branch;
+  if(saved.imgdir) $('imgdir').value=saved.imgdir;
+  if(saved.token) $('token').value=saved.token;
+})();
+</script>
+</body>
+</html>

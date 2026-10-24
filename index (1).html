@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modern Wood Art | كرافتيد بالحب</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--soft:#f7f2ea;--ink:#2a1a0e;--mut:#7d6a58;--acc:#8a5424;--line:#eadfce;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,Tahoma,sans-serif;line-height:1.7}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:4;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:8px 18px}
+nav .lg{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+nav img{width:42px;height:42px;border-radius:50%}
+nav .l a{margin-inline-start:16px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem}
+.btn{display:inline-block;border:0;border-radius:999px;padding:11px 26px;font:700 1rem Cairo,sans-serif;background:var(--ink);color:#fff;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.sm{padding:6px 16px;font-size:.88rem;background:var(--acc)}
+.hero{background:var(--soft);padding:48px 20px;display:grid;gap:28px;max-width:1100px;margin:0 auto;grid-template-columns:1fr 1fr;align-items:center}
+.hero h1{font-size:2.3rem;line-height:1.3;margin:0 0 10px;font-weight:800}
+.hero p{color:var(--mut);margin:0 0 22px;font-size:1.05rem}
+.hero .ph{display:flex;justify-content:center}
+.hero .ph img{width:min(100%,380px);aspect-ratio:1/1;border-radius:50%;object-fit:cover;box-shadow:0 14px 34px #3b241033}
+.wrap{background:var(--soft)}
+.feat{max-width:1000px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center}
+.feat div{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.feat b{display:block;color:var(--acc)}
+main{max-width:1100px;margin:0 auto;padding:10px 16px 60px}
+h2{font-size:1.6rem;margin:40px 0 4px;font-weight:800}
+.sub{color:var(--mut);margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 28px #3b241014}
+.card .im{aspect-ratio:4/5;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:3rem}
+.card img{width:100%;height:100%;object-fit:cover}
+.card .b{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{margin:0;font-size:1.08rem}.card p{margin:0;color:var(--mut);font-size:.9rem}
+.price{font-weight:800;color:var(--acc)}
+.empty{color:var(--mut);padding:22px;text-align:center;border:1px dashed var(--line);border-radius:14px;grid-column:1/-1}
+footer{background:var(--ink);color:#e9dcc8;text-align:center;padding:30px 16px}
+footer img{width:64px;height:64px;border-radius:50%}
+footer a{color:#e9dcc8}
+@media(max-width:720px){.hero{grid-template-columns:1fr;padding:30px 16px}.hero h1{font-size:1.8rem}.feat{grid-template-columns:1fr}nav .l a:not(.keep){display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="lg"><img src="logo.jpg" alt="" onerror="this.style.display='none'"> MODERN WOOD ART</div>
+  <div class="l"></div>
+</nav>
+
+<section class="wrap">
+  <div class="hero">
+    <div>
+      <h1>إضاءة خشبية بلمسة فنية، <span style="color:var(--acc)">مصنوعة بالحب</span></h1>
+      <p>أباجورات وقطع ديكور من الخشب الطبيعي بتصميمات عصرية، بجودة عالية وأسعار مناسبة.</p>
+      <a class="btn" href="#products">شوف المنتجات</a>
+    </div>
+    <div class="ph"><img src="logo.jpg" alt="Modern Wood Art" onerror="this.style.display='none'"></div>
+  </div>
+  <div class="feat">
+    <div><b>خشب طبيعي</b>خامات مختارة بعناية</div>
+    <div><b>تصميم حصري</b>كل قطعة بتفاصيلها</div>
+    <div><b>أسعار مناسبة</b>جودة عالية بسعر معقول</div>
+  </div>
+</section>
+
+<main>
+  <h2 id="products">المنتجات</h2>
+  <p class="sub">اختار القطعة اللي تناسب مكانك</p>
+  <div class="grid" id="products-grid"><div class="empty">المنتجات قريباً</div></div>
+</main>
+
+<footer>
+  <img src="logo.jpg" alt="" onerror="this.style.display='none'">
+  <h3 style="margin:10px 0 0;font-weight:800">MODERN WOOD ART</h3>
+  <p style="margin:0;color:#e9dcc8cc">كرافتيد بالحب</p>
+  <p style="font-size:.75rem;opacity:.35;margin:14px 0 0"><a href="admin.html">·</a></p>
+</footer>
+
+<script>
+(function(){
+  var box=document.getElementById('products-grid');
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});}
+  fetch('products.json?v='+Date.now()).then(function(r){return r.ok?r.json():[]}).then(function(list){
+    if(!Array.isArray(list)||!list.length) return;
+    box.innerHTML=list.map(function(p){
+      return '<div class="card"><div class="im">'+(p.img?'<img loading="lazy" src="'+esc(p.img)+'" alt="'+esc(p.name)+'">':'🪵')+'</div>'+
+        '<div class="b"><h3>'+esc(p.name)+'</h3>'+(p.desc?'<p>'+esc(p.desc)+'</p>':'')+
+        '<div class="price">'+esc(p.price)+' ج.م</div></div></div>';
+    }).join('');
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>
